@@ -1,0 +1,10 @@
+numpy==1.26.4
+pandas==2.2.2
+urllib3==1.26.16
+requests
+fastapi
+pydantic
+uvicorn
+google-cloud-bigquery
+google-cloud-firestore
+gunicorn==20.1.0
