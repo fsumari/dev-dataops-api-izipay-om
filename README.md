@@ -20,17 +20,43 @@ APIs de DataOps para diferentes casos de uso.
     git clone https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@${GITHUB_REPOSITORY}
     ```
 
-## 2. Upload Image to Container Registry
-    ```sh
-    cd $DIRECTORY_BASE
-    cp ../.env .env
-    export $(xargs < ../.env)
-    gcloud builds submit --tag=gcr.io/$PROJECT_ID/$IMAGE_NAME --project $PROJECT_ID --suppress-logs .
-    ```
+## 2. Crear Service Account
 
-## 3. Deploy
+Crear SA con el siguiente comando:
+
+```
+gcloud iam service-accounts create prd-dataops-apis-onemarketer \
+  --display-name "Service account para dataops apis"
+```
+
+## 3. Dar permisos a la Service Account
+
+Obtener el ID del projecto.
+
+```
+export GOOGLE_CLOUD_PROJECT=$(gcloud config get-value core/project)
+```
+Permisos de User para las APIS , DocAI y Firestore:
+
+```
+
+gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT} \
+    --member="serviceAccount:prd-dataops-apis-onemarketer@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com" \
+    --role="roles/datastore.user"
+
+gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT} \
+    --member="serviceAccount:prd-dataops-apis-onemarketer@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com" \
+    --role="roles/serviceusage.serviceUsageConsumer"
+
+gcloud projects add-iam-policy-binding ${GOOGLE_CLOUD_PROJECT} \
+    --member="serviceAccount:prd-dataops-apis-onemarketer@${GOOGLE_CLOUD_PROJECT}.iam.gserviceaccount.com" \
+    --role="roles/viewer"
+```
+
+
+## 4. Deploy
 
     ```sh
-     cd chatbot-container
+     cd service_api
      bash deploy.sh
     ```
