@@ -56,7 +56,7 @@ class IPRestrictionMiddleware(BaseHTTPMiddleware):
 # Uso con múltiples IPs
 
 # IPs de prueba en local
-#AUTHORIZED_IPS = ["127.0.0.1", "190.239.73.213"]
+#AUTHORIZED_IPS = ["127.0.0.1", "190.239.73.213", "192.168.110.209", "192.168.110.127", "192.168.100.190"]
 
 # AUTHORIZED_IPS = ["PRD OM", "OM DEV CHATBOT"]
 AUTHORIZED_IPS = ["35.232.156.102", "190.113.29.10"]
